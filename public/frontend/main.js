@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const categorySelect = document.getElementById("category");
+  const categoryInput = document.getElementById("category"); // Changed to input field
   const form = document.getElementById("generate-form");
   const output = document.getElementById("quiz-output");
   const sidebar = document.getElementById("sidebar"); // Sidebar container
@@ -8,26 +8,19 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch("http://localhost:8000/api/quiz/categories")
     .then(res => res.json())
     .then(data => {
-      categorySelect.innerHTML = '<option value="">Any</option>';
-      
       // Clear sidebar before adding new categories
       sidebar.innerHTML = "<h3>Categories</h3>";
 
-      data.forEach(cat => {
-        const option = document.createElement("option");
-        option.value = cat.id;  // Keep category ID
-        option.textContent = cat.name;
-        categorySelect.appendChild(option);
-
-        // Add to sidebar with category ID
+      data.trivia_categories.forEach(cat => {
+        // Add to sidebar with category ID and name
         const sidebarItem = document.createElement("div");
         sidebarItem.classList.add("sidebar-item");
-        sidebarItem.textContent = `Category ID: ${cat.id}`;  // Display Category ID
+        sidebarItem.textContent = `id: ${cat.id} - ${cat.name}`;  // Display ID and name
         sidebar.appendChild(sidebarItem);
       });
     })
     .catch(() => {
-      categorySelect.innerHTML = '<option value="">Failed to load categories</option>';
+      sidebar.innerHTML = "<p>Failed to load categories</p>";
     });
 
   // Handle quiz generation
@@ -36,12 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
     output.innerHTML = "<p>Loading quiz...</p>";
 
     const amount = document.getElementById("amount").value;
-    const category = document.getElementById("category").value;
+    const category = categoryInput.value;  // Get category ID from input field
     const difficulty = document.getElementById("difficulty").value;
     const type = document.getElementById("type").value;
 
     const params = new URLSearchParams({ amount, type });
-    if (category) params.append("category", category);
+    if (category) params.append("category", category); // Send category ID as input
     if (difficulty) params.append("difficulty", difficulty);
 
     fetch(`http://localhost:8000/api/quiz?${params.toString()}`)

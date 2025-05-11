@@ -66,6 +66,8 @@ $app->register(Illuminate\Validation\ValidationServiceProvider::class);
 
 
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -116,5 +118,6 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
+
 
 return $app;
