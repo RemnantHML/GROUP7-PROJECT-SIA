@@ -132,3 +132,22 @@ nav a:hover {
 .quiz-container button:hover {
   background-color: #1d4ed8;
 }
+
+/* Sidebar Styling */
+.sidebar {
+  width: 200px;
+  padding: 20px;
+  border-left: 1px solid #ccc;
+}
+
+.sidebar h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.sidebar-item {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  color: #555;
+}
