@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LearnHub</title>
+  <title>Generate a Quiz - LearnHub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,12 +13,12 @@
       <div class="logo">LearnHub</div>
       <nav>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#codewars">Codewars</a></li>
-          <li><a href="#wikipedia">Wikipedia</a></li>
-          <li><a href="#dogapi">Dog API</a></li>
-          <li><a href="#quiz">Quiz</a></li>
-          <li><a href="#scheduler">Scheduler</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">Codewars</a></li>
+          <li><a href="#">Wikipedia</a></li>
+          <li><a href="#">Dog API</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+          <li><a href="#">Scheduler</a></li>
         </ul>
       </nav>
     </div>
@@ -27,47 +27,11 @@
   <!-- Hero Section -->
   <main id="home" class="hero">
     <div class="hero-content">
-      <h1>Embark on Your Journey</h1>
+      <h1>There's no success without learning</h1>
       <div class="buttons">
         <a href="#codewars" class="btn primary">Explore Learning</a>
-        <a href="#quiz" class="btn secondary">Create a Quiz</a>
+        <a href="quiz.html" class="btn secondary">Create a Quiz</a>
       </div>
     </div>
   </main>
-
-  <!-- Quiz Section -->
-  <section id="quiz" class="quiz-section">
-    <div class="quiz-container">
-      <h2>Create a Quiz</h2>
-      <form id="quiz-form">
-        <label for="quiz-title">Quiz Title</label>
-        <input type="text" id="quiz-title" name="quiz-title" required>
-
-        <label for="category">Category</label>
-        <select id="category" name="category">
-          <option value="general">General</option>
-          <option value="science">Science</option>
-          <option value="tech">Technology</option>
-          <option value="history">History</option>
-        </select>
-
-        <label for="question">Question</label>
-        <input type="text" id="question" name="question" required>
-
-        <label>Options</label>
-        <input type="text" name="option1" placeholder="Option 1" required>
-        <input type="text" name="option2" placeholder="Option 2" required>
-        <input type="text" name="option3" placeholder="Option 3" required>
-        <input type="text" name="option4" placeholder="Option 4" required>
-
-        <label for="answer">Correct Answer</label>
-        <input type="text" id="answer" name="answer" required>
-
-        <button type="submit" class="btn primary">Save Quiz</button>
-      </form>
-    </div>
-  </section>
-
-  <script src="main.js"></script>
-</body>
-</html>
+  

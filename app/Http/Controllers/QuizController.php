@@ -44,13 +44,20 @@ class QuizController extends Controller
      * Get available trivia categories from OpenTDB
      */
     public function getCategories()
-    {
-        $response = Http::get("https://opentdb.com/api_category.php");
+{
+    $response = Http::get("https://opentdb.com/api_category.php");
 
-        if ($response->successful()) {
-            return response()->json($response->json());
+    if ($response->successful()) {
+        $categories = $response->json();
+
+        // Check if the response contains the 'trivia_categories' key
+        if (isset($categories['trivia_categories'])) {
+            return response()->json($categories['trivia_categories']);
         }
 
-        return response()->json(['error' => 'Unable to fetch categories'], 500);
+        return response()->json(['error' => 'Categories not found'], 404);
     }
+
+    return response()->json(['error' => 'Unable to fetch categories'], 500);
+}
 }
