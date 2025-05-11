@@ -25,3 +25,6 @@ $router->get('/api/schedules/{id}', 'StudyScheduleController@show');
 $router->put('/api/schedules/{id}', 'StudyScheduleController@update');
 $router->delete('/api/schedules/{id}', 'StudyScheduleController@destroy');
 
+$router->get('/', function () {
+    return redirect('/frontend/index.html');
+});
