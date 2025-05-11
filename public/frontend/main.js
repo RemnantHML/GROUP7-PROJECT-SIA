@@ -1,22 +1,29 @@
-// public/frontend/js/main.js
-console.log("Dashboard loaded");
-
-// Optionally add fetches to your Lumen API endpoints here
 document.addEventListener("DOMContentLoaded", () => {
   const categorySelect = document.getElementById("category");
   const form = document.getElementById("generate-form");
   const output = document.getElementById("quiz-output");
+  const sidebar = document.getElementById("sidebar"); // Sidebar container
 
   // Fetch categories
-  fetch("http://localhost:8000/api/categories")
+  fetch("http://localhost:8000/api/quiz/categories")
     .then(res => res.json())
     .then(data => {
       categorySelect.innerHTML = '<option value="">Any</option>';
-      data.trivia_categories.forEach(cat => {
+      
+      // Clear sidebar before adding new categories
+      sidebar.innerHTML = "<h3>Categories</h3>";
+
+      data.forEach(cat => {
         const option = document.createElement("option");
-        option.value = cat.id;
+        option.value = cat.id;  // Keep category ID
         option.textContent = cat.name;
         categorySelect.appendChild(option);
+
+        // Add to sidebar with category ID
+        const sidebarItem = document.createElement("div");
+        sidebarItem.classList.add("sidebar-item");
+        sidebarItem.textContent = `Category ID: ${cat.id}`;  // Display Category ID
+        sidebar.appendChild(sidebarItem);
       });
     })
     .catch(() => {
@@ -45,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const answers = [...q.incorrect_answers, q.correct_answer]
               .sort(() => Math.random() - 0.5)
               .map(ans => `<li>${ans}</li>`).join("");
-            return `
+            return ` 
               <div class="question-block">
                 <h4>Q${index + 1}: ${q.question}</h4>
                 <ul>${answers}</ul>
