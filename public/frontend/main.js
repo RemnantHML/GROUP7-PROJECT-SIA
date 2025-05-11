@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sidebar = document.getElementById("sidebar"); // Sidebar container
 
   // Fetch categories
-  fetch("http://localhost:8000/api/quiz/categories")
+  fetch("https://opentdb.com/api_category.php")
     .then(res => res.json())
     .then(data => {
       // Clear sidebar before adding new categories

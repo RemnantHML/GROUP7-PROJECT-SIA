@@ -14,7 +14,7 @@
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="#">Codewars</a></li>
+          <li><a href="codewars.html">Codewars</a></li>
           <li><a href="#">Wikipedia</a></li>
           <li><a href="#">Dog API</a></li>
           <li><a href="quiz.html">Quiz</a></li>
@@ -24,8 +24,13 @@
     </div>
   </header>
 
+    <div class="main-content">
+  <div class="sidebar" id="sidebar">
+    <h3>Categories</h3>
+    <!-- JS will populate categories here -->
+  </div>
+</section>
   <!-- Quiz Generation Section -->
-  <section class="quiz-section">
     <div class="quiz-container">
       <h2>Generate a Quiz</h2>
       <form id="generate-form">
@@ -54,14 +59,6 @@
 
       <div id="quiz-output" class="quiz-output"></div>
     </div>
-
-    <!-- Sidebar with Categories -->
-    <div id="sidebar" class="sidebar">
-      <h3>Categories</h3>
-      <!-- Categories will be populated here -->
-    </div>
-  </section>
-
   <script src="main.js"></script>
 </body>
 </html>

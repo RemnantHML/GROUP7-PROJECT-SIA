@@ -94,12 +94,13 @@ nav a:hover {
 }
 /* Quiz Page */
 .quiz-container {
+  flex: 1;
   max-width: 600px;
-  margin: 100px auto;
   padding: 2rem;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 2rem auto;
 }
 
 .quiz-container h2 {
@@ -135,11 +136,13 @@ nav a:hover {
 
 /* Sidebar Styling */
 .sidebar {
-  width: 300px;
-  padding: 20px;
-  border-left: 1px solid #ccc;
-  margin-top: 20px;
+  width: 250px;
+  padding: 1.5rem;
+  border-right: 1px solid #ccc;  /* Change from left to right border */
+  background-color: #f9f9f9;
+  height: 100%; /* Optional if you want full height */
 }
+
 
 .sidebar h3 {
   font-size: 1.2em;
@@ -196,3 +199,14 @@ nav a:hover {
 .profile p {
     margin: 4px 0;
     }
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+
+
