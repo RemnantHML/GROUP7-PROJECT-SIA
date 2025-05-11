@@ -92,8 +92,6 @@ nav a:hover {
 .card p {
   color: #4B5563;
 }
-
-
 /* Quiz Page */
 .quiz-container {
   max-width: 600px;
@@ -157,7 +155,44 @@ nav a:hover {
 }
 
 .sidebar-item:hover {
-  background-color: #f0f0f0;
-}
+  background-color: #f0f0f0;}
 
-
+.wars-container {
+    max-width: 600px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: auto;
+    }
+.wars-form-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    }
+.wars-container input[type="text"] {
+      flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    }
+.wars-container button {
+    padding: 10px 16px;
+    background-color: #d13639;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    }
+.wars-container button:hover {
+    background-color: #a72a2d;
+    }
+.profile {
+    margin-top: 20px;
+    }
+.profile h3 {
+    margin: 0 0 10px;
+    }
+.profile p {
+    margin: 4px 0;
+    }
