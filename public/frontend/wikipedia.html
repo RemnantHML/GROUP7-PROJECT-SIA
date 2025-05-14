@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wikipedia Viewer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">LearnHub</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="codewars.html">Codewars</a></li>
+        <li><a href="wikipedia.html">Wikipedia</a></li>
+        <li><a href="TheDogAPI.html">Dog API</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="scheduler.html">Scheduler</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Wikipedia Search Section -->
+  <section class="wiki-section">
+    <div class="wiki-container">
+      <h2>Search Wikipedia</h2>
+      <div class="wiki-search">
+        <input type="text" id="searchInput" placeholder="Enter a topic..." />
+        <button onclick="searchWiki()">Search</button>
+      </div>
+      <div id="resultsContainer" class="wiki-results"></div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal" id="contentModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div id="fullContent"></div>
+    </div>
+  </div>
+
+  <script src="wikipedia.js"></script>
+</body>
+</html>

@@ -376,3 +376,97 @@ nav a:hover {
 .scheduler-actions .delete-btn:hover {
   background-color: #B91C1C;
 }
+
+/* Wikipedia Section */
+.wiki-section {
+  padding: 2rem;
+  background-color: #f9fafb;
+}
+
+.wiki-container {
+  max-width: 700px;
+  margin: auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wiki-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1E3A8A;
+}
+
+.wiki-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.wiki-search input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.wiki-search button {
+  padding: 0.75rem 1.25rem;
+  background-color: #1E40AF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.wiki-search button:hover {
+  background-color: #1E3A8A;
+}
+
+.wiki-results .result-item {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.wiki-results .result-item:hover {
+  background-color: #f1f5f9;
+}
+
+.wiki-results strong {
+  font-size: 1.1rem;
+  color: #1E3A8A;
+}
+
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  max-width: 700px;
+  width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+  border-radius: 10px;
+  position: relative;
+}
+
+.close-btn {
+  position: sticky;
+  top: 10px;
+  right: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
