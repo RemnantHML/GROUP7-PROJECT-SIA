@@ -69,11 +69,18 @@ class StudyScheduleController extends Controller
     }
 
     // Delete a study schedule
-    public function destroy($id)
-    {
-        $schedule = StudySchedule::findOrFail($id);
-        $schedule->delete();
+   public function destroy($id)
+{
+    $schedule = StudySchedule::find($id); // ✅ Use the correct model
 
-        return response()->json(['message' => 'Deleted successfully']);
+    if (!$schedule) {
+        return response()->json(['message' => 'Schedule not found'], 404);
     }
+
+    $schedule->delete();
+
+    return response()->json(['message' => 'Schedule deleted successfully']);
+}
+
+
 }

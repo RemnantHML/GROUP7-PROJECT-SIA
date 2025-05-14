@@ -112,6 +112,10 @@ $app->register(Illuminate\Validation\ValidationServiceProvider::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class,
+]);
+
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

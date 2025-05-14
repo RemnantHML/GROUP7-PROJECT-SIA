@@ -28,3 +28,6 @@ $router->delete('/api/schedules/{id}', 'StudyScheduleController@destroy');
 $router->get('/', function () {
     return redirect('/frontend/index.html');
 });
+$router->options('/{any:.*}', function () {
+    return response('', 200);
+});
