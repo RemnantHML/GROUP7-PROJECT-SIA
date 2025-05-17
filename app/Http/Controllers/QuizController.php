@@ -3,63 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Services\QuizService;
 
 class QuizController extends Controller
 {
-    /**
-     * Get trivia questions from OpenTDB
-     */
+    protected $quizService;
+
+    public function __construct(QuizService $quizService)
+    {
+        $this->quizService = $quizService;
+    }
+
     public function getQuestions(Request $request)
     {
-        $amount = $request->input('amount', 5); // Default: 5 questions
-        $category = $request->input('category'); // Optional category ID
-        $difficulty = $request->input('difficulty'); // easy, medium, hard
-        $type = $request->input('type', 'multiple'); // 'multiple' or 'boolean'
+        $amount = $request->input('amount', 5);
+        $category = $request->input('category');
+        $difficulty = $request->input('difficulty');
+        $type = $request->input('type', 'multiple');
 
-        // Base API URL
-        $url = "https://opentdb.com/api.php?amount=$amount&type=$type";
+        $questions = $this->quizService->getQuestions($amount, $category, $difficulty, $type);
 
-        // Add optional filters
-        if ($category) {
-            $url .= "&category=" . urlencode($category);
-        }
-
-        if ($difficulty) {
-            $url .= "&difficulty=" . urlencode($difficulty);
-        }
-
-        // Make the API request
-        $response = Http::get($url);
-
-        // Handle the response
-        if ($response->successful()) {
-            return response()->json($response->json());
+        if ($questions) {
+            return response()->json($questions);
         }
 
         return response()->json(['error' => 'Failed to fetch quiz questions'], 500);
     }
 
-    /**
-     * Get available trivia categories from OpenTDB
-     */
     public function getCategories()
-{
-    $response = Http::get("https://opentdb.com/api_category.php");
+    {
+        $categories = $this->quizService->getCategories();
 
-    if ($response->successful()) {
-        $categories = $response->json();
-
-        // Check if the response contains the 'trivia_categories' key
-        if (isset($categories['trivia_categories'])) {
-            return response()->json($categories['trivia_categories']);
+        if ($categories) {
+            return response()->json($categories);
         }
 
-        return response()->json(['error' => 'Categories not found'], 404);
+        return response()->json(['error' => 'Unable to fetch categories'], 500);
     }
-
-    return response()->json(['error' => 'Unable to fetch categories'], 500);
-}
-
-
 }
