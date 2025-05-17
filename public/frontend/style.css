@@ -12,7 +12,7 @@ body {
 
 /* Navbar */
 .navbar {
-  background-color: #1E3A8A;
+  background-color: #191970;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,7 +25,7 @@ body {
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #60A5FA;
+  color: #ffffff;
 }
 
 nav ul {
