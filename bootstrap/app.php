@@ -62,6 +62,17 @@ $app->singleton(
 $app->configure('app');
 $app->configure('dogapi');
 $app->register(Illuminate\Validation\ValidationServiceProvider::class);
+$app->bind(App\Services\MathService::class, function ($app) {
+    return new App\Services\MathService();
+});
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->configure('jwt');
+$app->configure('auth');
+
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
+
 
 
 

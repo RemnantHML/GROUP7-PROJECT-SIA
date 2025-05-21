@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="homepage.css" />
 </head>
 <body>
+  <div id="userEmailDisplay" style="font-weight: 600; margin-bottom: 1rem;"></div>
   <!-- Background Circuit Decoration -->
   <div class="circuit-background">
     <img src="photos/Circuits.png" alt="Circuit Decoration" />
@@ -25,6 +26,8 @@
         <li><a href="wikipedia.html">Wikipedia</a></li>
         <li><a href="quiz.html">Quiz</a></li>
         <li><a href="scheduler.html">Scheduler</a></li>
+        <li><a href="logout.html">Logout</a></li>
+
       </ul>
     </nav>
   </header>
@@ -47,5 +50,21 @@
       Start with the features Now <span class="arrow">➜</span>
     </a></li></button>
   </div>
+  <script>
+  // Check if user is logged in
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    // Not logged in, redirect to login page
+    window.location.href = 'login.html';
+  } else {
+    // Optionally, display user email somewhere
+    const userEmail = localStorage.getItem('userEmail');
+    const userDisplay = document.getElementById('userEmailDisplay');
+    if (userDisplay && userEmail) {
+      userDisplay.textContent = `Logged in as: ${userEmail}`;
+    }
+  }
+</script>
+
 </body>
 </html>
