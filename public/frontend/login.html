@@ -41,9 +41,9 @@
 
   <script>
     const loginForm = document.getElementById('loginForm');
-    const loginMessage = document.getElementById('loginMessage');
+const loginMessage = document.getElementById('loginMessage');
 
-    loginForm.addEventListener('submit', async (e) => {
+loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const email = loginForm.email.value.trim();
@@ -65,14 +65,14 @@
     const data = await response.json();
 
     if (response.ok && data.token) {
-      loginMessage.style.color = 'green';
-      loginMessage.textContent = data.message || 'Login successful!';
-
-      // Save token in localStorage
+      // ✅ Save token and email in localStorage
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('userEmail', email);
 
-      // Redirect to home page after short delay
+      loginMessage.style.color = 'green';
+      loginMessage.textContent = 'Login successful! Redirecting...';
+
+      // ✅ Redirect to homepage after 1 second
       setTimeout(() => {
         window.location.href = 'homepage.html';
       }, 1000);
@@ -81,10 +81,11 @@
       loginMessage.style.color = 'red';
       loginMessage.textContent = data.message || 'Login failed. Check your credentials.';
     }
+
   } catch (error) {
+    console.error('Login error:', error);
     loginMessage.style.color = 'red';
     loginMessage.textContent = 'Error connecting to server. Please try again later.';
-    console.error('Login error:', error);
   }
 });
 

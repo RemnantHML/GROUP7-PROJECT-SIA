@@ -6,11 +6,16 @@ $router->get('/', function () use ($router) {
     return 'Lumen is running!';
 });
 
-$router->get('/site1', ['middleware' => 'auth:api', 'uses' => 'WikipediaController@search']);
+$router->post('/register', 'AuthController@register');
+$router->post('/login', 'LoginController@login');
 
+// Secure Wikipedia route
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
+    $router->get('/site1', 'WikipediaController@search');
+});
 
+// Other open routes (unchanged)
 $router->get('/codewars/{username}', 'CodewarsController@show');
-
 $router->get('/breeds', function (\App\Services\DogApiService $dogApiService) {
     return response()->json($dogApiService->getBreeds());
 });
@@ -19,34 +24,23 @@ $router->get('/breeds/search/{name}', function ($name, \App\Services\DogApiServi
 });
 $router->get('/api/quiz', 'QuizController@getQuestions');
 $router->get('/api/quiz/categories', 'QuizController@getCategories');
-$router->post('/login', 'LoginController@login');
 
+// Study Scheduler (protected)
+$router->group(['prefix' => 'site5', 'middleware' => 'auth'], function () use ($router) {
+    $router->get('/schedules', 'StudyScheduleController@index');
+    $router->post('/schedules', 'StudyScheduleController@store');
+    $router->get('/schedules/{id}', 'StudyScheduleController@show');
+    $router->put('/schedules/{id}', 'StudyScheduleController@update');
+    $router->delete('/schedules/{id}', 'StudyScheduleController@destroy');
+});
 
-$router->get('/api/schedules', 'StudyScheduleController@index');
-$router->post('/api/schedules', 'StudyScheduleController@store');
-$router->get('/api/schedules/{id}', 'StudyScheduleController@show');
-$router->put('/api/schedules/{id}', 'StudyScheduleController@update');
-$router->delete('/api/schedules/{id}', 'StudyScheduleController@destroy');
-$router->post('/register', 'AuthController@register');
-$router->post('/login', 'AuthController@login');
-
-// Example of a protected route
-$router->get('/user-info', ['middleware' => 'auth:api', function () {
-    return auth()->user();
-}]);
-
-
+// Math site (protected)
 $router->get('/site4', [
-    'middleware' => 'auth:api',
+    'middleware' => 'auth',
     'uses' => 'MathController@evaluate'
 ]);
 
-
-
-
-$router->get('/', function () {
-    return redirect('/frontend/index.html');
-});
+// CORS preflight handling
 $router->options('/{any:.*}', function () {
     return response('', 200);
 });

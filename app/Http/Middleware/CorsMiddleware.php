@@ -8,18 +8,21 @@ class CorsMiddleware
 {
     public function handle($request, Closure $next)
     {
+        $headers = [
+            'Access-Control-Allow-Origin'      => '*',  // Or restrict to your frontend URL
+            'Access-Control-Allow-Methods'     => 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, X-Requested-With',
+            'Access-Control-Allow-Credentials' => 'true',
+        ];
+
         if ($request->getMethod() === "OPTIONS") {
-            return response('', 200)
-                ->header('Access-Control-Allow-Origin', '*')
-                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-                ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+            return response()->json('OK', 200, $headers);
         }
 
         $response = $next($request);
-
-        return $response
-            ->header('Access-Control-Allow-Origin', '*')
-            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-            ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        foreach ($headers as $key => $value) {
+            $response->headers->set($key, $value);
+        }
+        return $response;
     }
 }

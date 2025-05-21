@@ -4,13 +4,34 @@ const taskList = document.getElementById('task-list');
 const filterInput = document.getElementById('date-filter');
 const filterBtn = document.getElementById('filter-btn');
 
-// Load all schedules
+// 🔐 Get token from localStorage
+const token = localStorage.getItem('authToken');
+
+// 🔒 If no token, redirect to login
+if (!token) {
+  window.location.href = 'login.html';
+}
+
+// 🔐 Helper to inject auth header
+function authFetch(url, options = {}) {
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...(options.headers || {}),
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+// 🚀 Load all schedules (optionally filtered by date)
 async function loadSchedules(filterDate = '') {
   try {
-    const response = await fetch(API_URL);
-    const schedules = await response.json();
+    const response = await authFetch(API_URL);
+    if (response.status === 401) return handleUnauthorized();
 
-    taskList.innerHTML = ''; // Clear the list before re-rendering
+    const schedules = await response.json();
+    taskList.innerHTML = '';
 
     schedules.forEach(schedule => {
       if (filterDate && !new Date(schedule.scheduled_at).toISOString().startsWith(filterDate)) {
@@ -36,50 +57,77 @@ async function loadSchedules(filterDate = '') {
   }
 }
 
-// Handle form submission to add new schedule
+// ➕ Add schedule
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const title = document.getElementById('title').value.trim();
   const description = document.getElementById('description').value.trim();
   const scheduled_at = document.getElementById('scheduled_at').value;
 
   try {
-    await fetch(API_URL, {
+    const response = await authFetch(API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, description, scheduled_at })
+      body: JSON.stringify({ title, description, scheduled_at }),
     });
+    if (response.status === 401) return handleUnauthorized();
 
     form.reset();
-    loadSchedules(); // Refresh after adding
+    loadSchedules();
   } catch (error) {
     console.error('Error adding schedule:', error);
   }
 });
 
-// ✅ Fixed delete function to reload schedules properly
+// ❌ Delete schedule
 async function deleteSchedule(id) {
   try {
-    const response = await fetch(`${API_URL}${id}`, {
+    const response = await authFetch(`${API_URL}${id}`, {
       method: 'DELETE',
     });
-
-    if (!response.ok) throw new Error('Delete failed');
+    if (response.status === 401) return handleUnauthorized();
 
     alert('Schedule deleted!');
-    loadSchedules(); // ✅ Correct function call to refresh
+    loadSchedules();
   } catch (err) {
     console.error(err);
     alert('Error deleting schedule');
   }
 }
 
-// Filter schedules by date
+// 📆 Filter
 filterBtn.addEventListener('click', () => {
   const filterDate = filterInput.value;
   loadSchedules(filterDate);
 });
 
-// Load schedules on page load
+// 🚨 Redirect on unauthorized
+function handleUnauthorized() {
+  alert('Session expired. Please log in again.');
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('userEmail');
+  window.location.href = 'login.html';
+}
+
+// 🧠 Load on page
 window.addEventListener('DOMContentLoaded', () => loadSchedules());
+
+// 🚪 Add Logout Button if needed
+const nav = document.querySelector('.navbar nav ul');
+if (nav) {
+  const logoutItem = document.createElement('li');
+  logoutItem.innerHTML = `<a href="#" id="logoutBtn">Logout</a>`;
+  nav.appendChild(logoutItem);
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userEmail');
+    window.location.href = 'login.html';
+  });
+  // Optionally, display user email somewhere
+const userEmail = localStorage.getItem('userEmail');
+const userDisplay = document.getElementById('userEmailDisplay');
+if (userDisplay && userEmail) {
+      userDisplay.textContent = `Logged in as: ${userEmail}`;
+    }
+}

@@ -1,19 +1,33 @@
-const API_URL = "http://localhost:8000/wikipedia/search";
+const API_URL = "http://localhost:8000/api/site1";
 
-// Function to search Wikipedia articles using your API endpoint
+// Function to search Wikipedia articles using your secure API
 function searchWiki() {
   const query = document.getElementById("searchInput").value.trim();
-  if (!query) return; // Do nothing if input is empty
+  if (!query) return;
 
-  fetch(`${API_URL}?srsearch=${encodeURIComponent(query)}&srlimit=10`)
-    .then(res => res.json())
+  const token = localStorage.getItem('authToken'); // Assumes token is stored after login
+  if (!token) {
+    alert("You are not logged in. Please login first.");
+    return;
+  }
+
+  fetch(`${API_URL}?query=${encodeURIComponent(query)}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Unauthorized or request failed");
+      }
+      return res.json();
+    })
     .then(data => {
-      const results = data.query?.search || [];
       const container = document.getElementById("resultsContainer");
-      container.innerHTML = ""; // Clear previous results
+      container.innerHTML = "";
 
-      // Create and append result items
-      results.forEach(item => {
+      data.forEach(item => {
         const div = document.createElement("div");
         div.className = "result-item";
         div.innerHTML = `<strong>${item.title}</strong><p>${item.snippet}...</p>`;
@@ -22,12 +36,12 @@ function searchWiki() {
       });
     })
     .catch(err => {
-      console.error("Error fetching search results:", err);
-      document.getElementById("resultsContainer").innerHTML = "<p>Failed to load results. Please try again later.</p>";
+      console.error("Search failed:", err);
+      document.getElementById("resultsContainer").innerHTML = "<p>Login or try again later.</p>";
     });
 }
 
-// Function to fetch and display full Wikipedia page content inside the modal
+// Full Wikipedia page content
 function showPageContent(pageid, title) {
   fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=parse&pageid=${pageid}&format=json`)
     .then(res => res.json())
@@ -43,15 +57,19 @@ function showPageContent(pageid, title) {
     });
 }
 
-// Function to close the modal
 function closeModal() {
   document.getElementById("contentModal").style.display = "none";
 }
 
-// Optional: Close modal when clicking outside modal content
 window.onclick = function(event) {
   const modal = document.getElementById("contentModal");
   if (event.target === modal) {
     closeModal();
   }
+// Optionally, display user email somewhere
+const userEmail = localStorage.getItem('userEmail');
+const userDisplay = document.getElementById('userEmailDisplay');
+if (userDisplay && userEmail) {
+      userDisplay.textContent = `Logged in as: ${userEmail}`;
+    }
 };

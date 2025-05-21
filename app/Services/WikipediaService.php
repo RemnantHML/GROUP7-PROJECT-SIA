@@ -2,20 +2,24 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class WikipediaService
 {
-    public function search($query, $limit = 5)
+    public function searchWikipedia($query)
     {
-        $response = Http::get('https://en.wikipedia.org/w/api.php', [
-            'action'   => 'query',
-            'format'   => 'json',
-            'list'     => 'search',
-            'srsearch' => $query,
-            'srlimit'  => $limit,
+        $client = new Client();
+        $response = $client->get('https://en.wikipedia.org/w/api.php', [
+            'query' => [
+                'action' => 'query',
+                'list' => 'search',
+                'srsearch' => $query,
+                'format' => 'json',
+                'origin' => '*'
+            ]
         ]);
 
-        return $response->json();
+        $data = json_decode($response->getBody(), true);
+        return $data['query']['search'] ?? [];
     }
 }

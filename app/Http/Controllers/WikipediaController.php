@@ -3,20 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Services\WikipediaService;
 
 class WikipediaController extends Controller
 {
+    protected $wikipediaService;
+
+    public function __construct(WikipediaService $wikipediaService)
+    {
+        $this->wikipediaService = $wikipediaService;
+    }
+
     public function search(Request $request)
     {
-        $response = Http::get('https://en.wikipedia.org/w/api.php', [
-            'action'   => 'query',
-            'format'   => 'json',
-            'list'     => 'search',
-            'srsearch' => $request->input('srsearch'),
-            'srlimit'  => $request->input('srlimit', 5),
-        ]);
+        $keyword = $request->query('query');
 
-        return response()->json($response->json());
+        if (!$keyword) {
+            return response()->json(['message' => 'Missing query parameter.'], 400);
+        }
+
+        try {
+            $results = $this->wikipediaService->searchWikipedia($keyword);
+            return response()->json($results, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Wikipedia search failed.'], 500);
+        }
     }
 }
