@@ -1,18 +1,15 @@
-const API_URL = 'http://localhost:8000/api/schedules/';
+const API_URL = 'http://localhost:8000/site5/schedules/';
 const form = document.getElementById('scheduler-form');
 const taskList = document.getElementById('task-list');
 const filterInput = document.getElementById('date-filter');
 const filterBtn = document.getElementById('filter-btn');
 
-// 🔐 Get token from localStorage
 const token = localStorage.getItem('authToken');
 
-// 🔒 If no token, redirect to login
 if (!token) {
   window.location.href = 'login.html';
 }
 
-// 🔐 Helper to inject auth header
 function authFetch(url, options = {}) {
   return fetch(url, {
     ...options,
@@ -24,7 +21,6 @@ function authFetch(url, options = {}) {
   });
 }
 
-// 🚀 Load all schedules (optionally filtered by date)
 async function loadSchedules(filterDate = '') {
   try {
     const response = await authFetch(API_URL);
@@ -57,7 +53,6 @@ async function loadSchedules(filterDate = '') {
   }
 }
 
-// ➕ Add schedule
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const title = document.getElementById('title').value.trim();
@@ -69,7 +64,14 @@ form.addEventListener('submit', async (e) => {
       method: 'POST',
       body: JSON.stringify({ title, description, scheduled_at }),
     });
+
     if (response.status === 401) return handleUnauthorized();
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      alert('Error: ' + JSON.stringify(errorData.errors || errorData));
+      return;
+    }
 
     form.reset();
     loadSchedules();
@@ -78,13 +80,19 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-// ❌ Delete schedule
 async function deleteSchedule(id) {
   try {
     const response = await authFetch(`${API_URL}${id}`, {
       method: 'DELETE',
     });
+
     if (response.status === 401) return handleUnauthorized();
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      alert('Error: ' + (errorData?.message || 'Unable to delete'));
+      return;
+    }
 
     alert('Schedule deleted!');
     loadSchedules();
@@ -94,13 +102,11 @@ async function deleteSchedule(id) {
   }
 }
 
-// 📆 Filter
 filterBtn.addEventListener('click', () => {
   const filterDate = filterInput.value;
   loadSchedules(filterDate);
 });
 
-// 🚨 Redirect on unauthorized
 function handleUnauthorized() {
   alert('Session expired. Please log in again.');
   localStorage.removeItem('authToken');
@@ -108,10 +114,8 @@ function handleUnauthorized() {
   window.location.href = 'login.html';
 }
 
-// 🧠 Load on page
 window.addEventListener('DOMContentLoaded', () => loadSchedules());
 
-// 🚪 Add Logout Button if needed
 const nav = document.querySelector('.navbar nav ul');
 if (nav) {
   const logoutItem = document.createElement('li');
@@ -124,10 +128,10 @@ if (nav) {
     localStorage.removeItem('userEmail');
     window.location.href = 'login.html';
   });
-  // Optionally, display user email somewhere
-const userEmail = localStorage.getItem('userEmail');
-const userDisplay = document.getElementById('userEmailDisplay');
-if (userDisplay && userEmail) {
-      userDisplay.textContent = `Logged in as: ${userEmail}`;
-    }
+
+  const userEmail = localStorage.getItem('userEmail');
+  const userDisplay = document.getElementById('userEmailDisplay');
+  if (userDisplay && userEmail) {
+    userDisplay.textContent = `Logged in as: ${userEmail}`;
+  }
 }

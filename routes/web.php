@@ -14,6 +14,9 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
     $router->get('/site1', 'WikipediaController@search');
 });
 
+$router->get('/site3', 'NumbersController@getFact');
+
+
 // Other open routes (unchanged)
 $router->get('/codewars/{username}', 'CodewarsController@show');
 $router->get('/breeds', function (\App\Services\DogApiService $dogApiService) {
@@ -33,6 +36,7 @@ $router->group(['prefix' => 'site5', 'middleware' => 'auth'], function () use ($
     $router->put('/schedules/{id}', 'StudyScheduleController@update');
     $router->delete('/schedules/{id}', 'StudyScheduleController@destroy');
 });
+
 
 // Math site (protected)
 $router->get('/site4', [

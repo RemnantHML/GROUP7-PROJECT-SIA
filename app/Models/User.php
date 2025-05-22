@@ -15,7 +15,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use Authenticatable, Authorizable, HasFactory;
 
     protected $fillable = ['name', 'email', 'password'];
-
     protected $hidden = ['password'];
 
     public function getJWTIdentifier()
@@ -26,5 +25,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(StudySchedule::class);
     }
 }

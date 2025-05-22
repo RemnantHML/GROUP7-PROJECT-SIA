@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Scheduler</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="userEmailDisplay" style="font-weight: 600; margin-bottom: 1rem;"></div>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">LearnHub</div>
+    <nav>
+      <ul>
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="index.html">Explore</a></li>
+        <li><a href="codewars.html">Codewars</a></li>
+        <li><a href="#">Wikipedia</a></li>
+        <li><a href="TheDogAPI.html">Dog API</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="scheduler.html">Scheduler</a></li>
+      </ul>
+    </nav>
+  </div>
+<!-- Numbers API Section -->
+<div class="wars-container" style="margin-top: 2rem;">
+  <h2>Number Facts</h2>
+  <div class="wars-form-group">
+    <input type="number" id="numberInput" placeholder="Enter a number" />
+    <select id="typeSelect">
+      <option value="trivia">Trivia</option>
+      <option value="math">Math</option>
+      <option value="year">Year</option>
+      <option value="date">Date (MM/DD)</option>
+    </select>
+    <button id="fetchFactBtn">Get Fact</button>
+  </div>
+  <div id="factDisplay" style="font-size: 1.1rem; color: #1E3A8A; min-height: 3rem;"></div>
+</div>
+<script src="NumberFacts.js"></script>
+</body>
+</html>
