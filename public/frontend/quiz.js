@@ -61,3 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 });
+// Optionally, display user email somewhere
+const userEmail = localStorage.getItem('userEmail');
+const userDisplay = document.getElementById('userEmailDisplay');
+if (userDisplay && userEmail) {
+      userDisplay.textContent = `Logged in as: ${userEmail}`;
+    };

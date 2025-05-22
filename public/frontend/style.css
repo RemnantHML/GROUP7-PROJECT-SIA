@@ -529,3 +529,73 @@ nav a:hover {
   font-weight: 600;
   text-align: center;
 }
+
+/* Dictionary Section */
+.dictionary-section {
+  padding: 2rem;
+  background-color: #f1f5f9;
+}
+
+.dictionary-container {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.dictionary-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #1E3A8A;
+}
+
+.dictionary-form-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+#wordInput {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#lookupBtn {
+  padding: 0.75rem 1.25rem;
+  background-color: #1E40AF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#lookupBtn:hover {
+  background-color: #1E3A8A;
+}
+
+#dictionaryResults {
+  margin-top: 1rem;
+}
+
+.dictionary-definition {
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-left: 4px solid #2563eb;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.dictionary-definition h3 {
+  color: #1E40AF;
+  margin-bottom: 0.5rem;
+}
+
+.dictionary-definition p {
+  margin: 4px 0;
+  color: #374151;
+}

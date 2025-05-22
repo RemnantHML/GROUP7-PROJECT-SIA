@@ -15,6 +15,10 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 });
 
 $router->get('/site3', 'NumbersController@getFact');
+$router->get('/site4', [
+    'middleware' => 'auth',
+    'uses' => 'DictionaryController@lookup'
+]);
 
 
 // Other open routes (unchanged)
@@ -39,10 +43,7 @@ $router->group(['prefix' => 'site5', 'middleware' => 'auth'], function () use ($
 
 
 // Math site (protected)
-$router->get('/site4', [
-    'middleware' => 'auth',
-    'uses' => 'MathController@evaluate'
-]);
+
 
 // CORS preflight handling
 $router->options('/{any:.*}', function () {
