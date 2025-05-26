@@ -31,4 +31,13 @@ class QuizService
 
         return json_decode($response->getBody(), true);
     }
+     // ✅ ADD THIS METHOD
+    public function getCategories()
+    {
+        $categoriesUrl = 'https://opentdb.com/api_category.php';
+
+        $response = $this->client->get($categoriesUrl);
+
+        return json_decode($response->getBody(), true);
+    }
 }
