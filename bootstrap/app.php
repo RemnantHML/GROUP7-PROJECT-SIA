@@ -127,6 +127,7 @@ $app->middleware([
     App\Http\Middleware\CorsMiddleware::class,
 ]);
 
+$app->configure('services');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',

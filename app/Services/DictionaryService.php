@@ -2,21 +2,29 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class DictionaryService
 {
-    protected $baseUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
+    protected $client;
+    protected $baseUrl;
 
-    public function lookupWord($word)
+    public function __construct()
     {
-        $url = $this->baseUrl . urlencode($word);
-        $response = Http::get($url);
+        $this->client = new Client();
+        $this->baseUrl = rtrim(config('services.dictionary.base_url'), '/');
+    }
 
-        if ($response->failed()) {
-            return ['error' => 'Word not found or API error'];
+    public function getDefinition(string $word)
+    {
+        $url = $this->baseUrl . '/' . urlencode($word);
+
+        $response = $this->client->get($url);
+
+        if ($response->getStatusCode() === 200) {
+            return json_decode($response->getBody()->getContents(), true);
         }
 
-        return $response->json();
+        return ['error' => 'Could not fetch dictionary definition'];
     }
 }

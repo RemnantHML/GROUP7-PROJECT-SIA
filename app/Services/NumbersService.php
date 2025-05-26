@@ -2,22 +2,53 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class NumbersService
 {
-    public function fetchFact($number, $type)
-    {
-        $url = "http://numbersapi.com/{$number}/{$type}?json";
+    protected $client;
+    protected $baseUrl;
 
-        try {
-            $response = Http::get($url);
-            return $response->json();
-        } catch (\Exception $e) {
-            return [
-                'error' => 'Unable to fetch fact.',
-                'message' => $e->getMessage()
-            ];
+    public function __construct()
+    {
+        $this->client = new Client();
+        $this->baseUrl = rtrim(config('services.numberfacts.base_url'), '/');
+    }
+
+    public function getTrivia($number)
+    {
+        $url = $this->baseUrl . '/' . $number;
+
+        $response = $this->client->get($url);
+
+        if ($response->getStatusCode() === 200) {
+            return ['fact' => $response->getBody()->getContents()];
+        }
+
+        return ['error' => 'Could not fetch number fact'];
+    }
+
+    public function getMathFact($number)
+    {
+        $url = $this->baseUrl . '/' . $number . '/math';
+
+        $response = $this->client->get($url);
+
+        if ($response->getStatusCode() === 200) {
+            return ['fact' => $response->getBody()->getContents()];
+        }
+
+        return ['error' => 'Could not fetch math fact'];
+    }
+
+    public function fetchFact($number, $type = 'trivia')
+    {
+        switch (strtolower($type)) {
+            case 'math':
+                return $this->getMathFact($number);
+            case 'trivia':
+            default:
+                return $this->getTrivia($number);
         }
     }
 }

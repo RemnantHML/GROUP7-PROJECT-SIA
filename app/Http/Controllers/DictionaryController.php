@@ -22,7 +22,9 @@ class DictionaryController extends Controller
             return response()->json(['error' => 'Missing "word" query parameter'], 400);
         }
 
-        $result = $this->dictionaryService->lookupWord($word);
+        // Changed this line to use the correct method name
+        $result = $this->dictionaryService->getDefinition($word);
+
         return response()->json($result);
     }
 }

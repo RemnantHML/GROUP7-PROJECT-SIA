@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000/api/site1";
+const API_URL = "http://localhost:8000/api/Wikipedia";
 
 // Function to search Wikipedia articles using your secure API
 function searchWiki() {

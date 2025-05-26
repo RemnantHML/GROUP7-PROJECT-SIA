@@ -2,40 +2,33 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 
 class QuizService
 {
-    public function getQuestions($amount = 5, $category = null, $difficulty = null, $type = 'multiple')
+    protected $client;
+    protected $baseUrl;
+
+    public function __construct()
     {
-        $url = "https://opentdb.com/api.php?amount=$amount&type=$type";
-
-        if ($category) {
-            $url .= "&category=" . urlencode($category);
-        }
-
-        if ($difficulty) {
-            $url .= "&difficulty=" . urlencode($difficulty);
-        }
-
-        $response = Http::get($url);
-
-        if ($response->successful()) {
-            return $response->json();
-        }
-
-        return null;
+        $this->client = new Client();
+        $this->baseUrl = config('services.opentdb.base_url');
     }
 
-    public function getCategories()
+    public function getQuestions($amount = 10, $category = null, $difficulty = null, $type = null)
     {
-        $response = Http::get("https://opentdb.com/api_category.php");
+        $queryParams = [
+            'amount' => $amount,
+        ];
 
-        if ($response->successful()) {
-            $json = $response->json();
-            return $json['trivia_categories'] ?? null;
-        }
+        if ($category) $queryParams['category'] = $category;
+        if ($difficulty) $queryParams['difficulty'] = $difficulty;
+        if ($type) $queryParams['type'] = $type;
 
-        return null;
+        $response = $this->client->get($this->baseUrl, [
+            'query' => $queryParams,
+        ]);
+
+        return json_decode($response->getBody(), true);
     }
 }

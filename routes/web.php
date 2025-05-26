@@ -11,11 +11,11 @@ $router->post('/login', 'LoginController@login');
 
 // Secure Wikipedia route
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
-    $router->get('/site1', 'WikipediaController@search');
+    $router->get('/Wikipedia', 'WikipediaController@search');
 });
 
-$router->get('/site3', 'NumbersController@getFact');
-$router->get('/site4', [
+$router->get('/NumberFacts', 'NumbersController@getFact');
+$router->get('/Dictionary', [
     'middleware' => 'auth',
     'uses' => 'DictionaryController@lookup'
 ]);

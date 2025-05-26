@@ -25,7 +25,7 @@ document.getElementById('fetchFactBtn').addEventListener('click', async () => {
     }
 
     // Use your backend URL here
-    const url = new URL('http://localhost:8000/site3');
+    const url = new URL('http://localhost:8000/NumberFacts');
     url.searchParams.set('number', number);
     url.searchParams.set('type', type);
 
@@ -44,7 +44,7 @@ document.getElementById('fetchFactBtn').addEventListener('click', async () => {
     const data = await response.json();
 
     // Show the 'text' field from the API response
-    factDisplay.textContent = data.text || 'No fact found.';
+    factDisplay.textContent = data.fact || 'No fact found.';
 
   } catch (error) {
     console.error('Fetch error:', error);
