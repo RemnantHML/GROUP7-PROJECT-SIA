@@ -9,11 +9,7 @@
 </head>
 <body>
   <div id="userEmailDisplay" style="font-weight: 600; margin-bottom: 1rem;"></div>
-  <!-- Background Circuit Decoration -->
-  <div class="circuit-background">
-    <img src="photos/Circuits.png" alt="Circuit Decoration" />
-  </div>
-
+  
   <!-- Navbar -->
   <header class="navbar">
     <div class="logo-container">
@@ -36,20 +32,29 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Welcome to <span class="highlight">LearnHub!</span></h1>
-      <p>Your one-stop platform for coding challenges, encyclopedic search, educational quizzes, and smart scheduling - all in one place.</p>
+      <p>Your one-stop platform for coding challenges, encyclopedic search,<br> educational quizzes, and smart scheduling - all in one place.</p>
       <button class="about-button">About LearnHub</button>
     </div>
     <div class="hero-image">
-      <img src="photos/E-learn.png" alt="E-learning illustration" />
+      <div class="image-stack">
+        <img class="back" src="photos/Backlines.png" alt="Backlines" />
+        <img class="front" src="photos/E-learn.png" alt="E-learning illustration" />
+      </div>
     </div>
   </section>
 
   <!-- CTA -->
   <div class="cta-wrapper">
-    <button class="main-button"><li><a href="index.html">
+    <a class="main-button" href="index.html">
       Start with the features Now <span class="arrow">➜</span>
-    </a></li></button>
+    </a>
   </div>
+  
+  <!-- Background Circuit Decoration -->
+  <div class="circuit-background">
+    <img src="photos/Circuits.png" alt="Circuit Decoration" />
+  </div>
+
   <script>
   // Check if user is logged in
   const token = localStorage.getItem('authToken');
