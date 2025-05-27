@@ -10,18 +10,6 @@ body {
   color: #111827;
 }
 
-/* Navbar */
-.navbar {
-  background-color: #191970;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -468,6 +456,7 @@ nav a:hover {
 }
 /* Login Section */
 .login-section {
+  margin-top: 3rem;
   padding: 2rem;
   background-color: #f9fafb;
   min-height: 80vh;
@@ -487,7 +476,7 @@ nav a:hover {
 
 .login-container h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
   color: #1E3A8A;
 }
 
