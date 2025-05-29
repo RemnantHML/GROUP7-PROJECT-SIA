@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wikipedia Viewer</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="homepage.css">
+  <link rel="stylesheet" href="{{ asset('CSS/style.css') }}" />
+  <link rel="stylesheet" href="{{ asset('CSS/homepage.css') }}">
 </head>
 <body>
   <div id="userEmailDisplay" style="font-weight: 600; margin-bottom: 1rem;"></div>
@@ -45,6 +45,6 @@
     </div>
   </div>
 
-  <script src="JS/wikipedia.js"></script>
+  <script src="{{ asset('JS/wikipedia.js') }}"></script>
 </body>
 </html>

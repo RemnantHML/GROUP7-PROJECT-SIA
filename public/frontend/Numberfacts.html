@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Study Scheduler</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="homepage.css">
+  <link rel="stylesheet" href="{{ asset('CSS/style.css') }}" />
+  <link rel="stylesheet" href="{{ asset('CSS/homepage.css') }}">
 </head>
 <body>
   <div id="userEmailDisplay" style="font-weight: 600; margin-bottom: 1rem;"></div>
@@ -39,6 +39,6 @@
   </div>
   <div id="factDisplay" style="font-size: 1.1rem; color: #1E3A8A; min-height: 3rem;"></div>
 </div>
-<script src="JS/NumberFacts.js"></script>
+<script src="{{ asset('JS/NumberFacts.js') }}"></script>
 </body>
 </html>
