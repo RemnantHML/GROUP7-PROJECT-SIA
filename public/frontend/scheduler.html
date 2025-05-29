@@ -77,6 +77,17 @@
     <ul class="scheduler-task-list" id="task-list"></ul>
   </div>
 
+  <script>
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function() {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userEmail');
+        window.location.href = '/frontend/index.html';
+      });
+    }
+  </script>
+
   <script src="/frontend/JS/scheduler.js"></script>
 </body>
 </html>
