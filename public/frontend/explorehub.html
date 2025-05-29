@@ -23,7 +23,7 @@
         <li><a href="/frontend/wikipedia.html">Wikipedia</a></li>
         <li><a href="/frontend/quiz.html">Quiz</a></li>
         <li><a href="/frontend/scheduler.html">Scheduler</a></li>
-        <li><a href="/frontend/logout.html">Logout</a></li>
+        <li><button id="logoutBtn" class="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </div>
@@ -68,6 +68,15 @@
   <p>READY TO TAKE A QUIZ?</p>
 </div>
   </section>
-
+  <script>
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', function() {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userEmail');
+    window.location.href = '/frontend/index.html';
+  });
+}
+</script>
 </body>
 </html>

@@ -18,12 +18,12 @@
     <nav>
       <ul>
         <li><a href="/frontend/homepage.html">Home</a></li>
-        <li><a href="/frontend/index.html">Explore</a></li>
+        <li><a href="/frontend/explorehub.html">Explore</a></li>
         <li><a href="/frontend/Numberfacts.html">Number Facts</a></li>
         <li><a href="/frontend/Dictionary.html">Dictionary</a></li>
         <li><a href="/frontend/quiz.html">Quiz</a></li>
         <li><a href="/frontend/scheduler.html">Scheduler</a></li>
-        <li><a href="/frontend/Logout.html">Logout</a></li>
+        <li><button id="logoutBtn" class="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </div>
@@ -49,5 +49,15 @@
   </div>
 
   <script src="/frontend/JS/wikipedia.js"></script>
+  <script>
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function() {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userEmail');
+        window.location.href = '/frontend/index.html';
+      });
+    }
+  </script>
 </body>
 </html>

@@ -14,7 +14,7 @@
   <!-- Navbar -->
   <header class="navbar">
     <div class="logo-container">
-      <img src="/photos/logo.png" alt="Logo" class="logo" />
+      <img src="/frontend/photos/logo.png" alt="Logo" class="logo" />
       <span class="site-title">LearnHub</span>
     </div>
     <nav>
@@ -24,7 +24,7 @@
         <li><a href="/frontend/wikipedia.html">Wikipedia</a></li>
         <li><a href="/frontend/quiz.html">Quiz</a></li>
         <li><a href="/frontend/scheduler.html">Scheduler</a></li>
-        <li><a href="/frontend/logout.html">Logout</a></li>
+        <li><button id="logoutBtn" class="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </header>
@@ -38,8 +38,8 @@
     </div>
     <div class="hero-image">
       <div class="image-stack">
-        <img class="back" src="photos/Backlines.png" alt="Backlines" />
-        <img class="front" src="photos/E-learn.png" alt="E-learning illustration" />
+        <img class="back" src="/frontend/photos/Backlines.png" alt="Backlines" />
+        <img class="front" src="/frontend/photos/E-learn.png" alt="E-learning illustration" />
       </div>
     </div>
   </section>
@@ -53,7 +53,7 @@
   
   <!-- Background Circuit Decoration -->
   <div class="circuit-background">
-    <img src="photos/Circuits.png" alt="Circuit Decoration" />
+    <img src="/frontend/photos/Circuits.png" alt="Circuit Decoration" />
   </div>
 
   <script>
@@ -61,7 +61,7 @@
   const token = localStorage.getItem('authToken');
   if (!token) {
     // Not logged in, redirect to login page
-    window.location.href = 'login.html';
+    window.location.href = '/frontend/index.html';
   } else {
     // Optionally, display user email somewhere
     const userEmail = localStorage.getItem('userEmail');
@@ -69,7 +69,15 @@
     if (userDisplay && userEmail) {
       userDisplay.textContent = `Logged in as: ${userEmail}`;
     }
-    
+  }
+  // Logout button handler
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function() {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userEmail');
+      window.location.href = '/frontend/index.html';
+    });
   }
 </script>
 
