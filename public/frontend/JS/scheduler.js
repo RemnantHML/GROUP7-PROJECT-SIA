@@ -116,28 +116,9 @@ function handleUnauthorized() {
 
 window.addEventListener('DOMContentLoaded', () => loadSchedules());
 
-const nav = document.querySelector('.navbar nav ul');
-if (nav) {
-  const logoutItem = document.createElement('li');
-  logoutItem.innerHTML = `<a href="#" id="logoutBtn">Logout</a>`;
-  nav.appendChild(logoutItem);
-
-  document.getElementById('logoutBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userEmail');
-    window.location.href = 'login.html';
-  });
-
-  const userEmail = localStorage.getItem('userEmail');
-  const userDisplay = document.getElementById('userEmailDisplay');
-  if (userDisplay && userEmail) {
-    userDisplay.textContent = `Logged in as: ${userEmail}`;
-  }
-}
 // Optionally, display user email somewhere
 const userEmail = localStorage.getItem('userEmail');
 const userDisplay = document.getElementById('userEmailDisplay');
 if (userDisplay && userEmail) {
-      userDisplay.textContent = `Logged in as: ${userEmail}`;
-    }
+  userDisplay.textContent = `Logged in as: ${userEmail}`;
+}
