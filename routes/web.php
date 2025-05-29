@@ -3,7 +3,7 @@
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 $router->get('/', function () use ($router) {
-    return file_get_contents(base_path('public/index.html'));
+    return file_get_contents(base_path('public/frontend/HTML/index.html'));
 });
 
 $router->post('/register', 'AuthController@register');
