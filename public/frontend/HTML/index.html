@@ -2,69 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>LearnHub</title>
-  <link rel="stylesheet" href="CSS/style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - LearnHub</title>
+  <link rel="stylesheet" href="CSS/style.css" />
   <link rel="stylesheet" href="CSS/homepage.css">
 </head>
 <body>
-<div id="userEmailDisplay" style="font-weight: 600; margin-bottom: 1rem;"></div>
   <!-- Navbar -->
   <div class="navbar">
     <div class="logo">LearnHub</div>
-    <nav>
-      <ul>
-        <li><a href="homepage.html">Home</a></li>
-        <li><a href="Numberfacts.html">Number Facts</a></li>
-        <li><a href="Dictionary.html">Dictionary</a></li>
-        <li><a href="wikipedia.html">Wikipedia</a></li>
-        <li><a href="quiz.html">Quiz</a></li>
-        <li><a href="scheduler.html">Scheduler</a></li>
-        <li><a href="logout.html">Logout</a></li>
-      </ul>
-    </nav>
   </div>
 
-  <!-- Main Banner -->
-  <header class="banner">
-    <h1>Explore LearnHub</h1>
-  </header>
+  <section class="login-section">
+    <div class="login-container">
+      <h2>Login to LearnHub</h2>
+      <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email" />
 
-  <!-- Three Columns -->
-  <section class="cards">
-    <div class="card">
-  <div class="img-placeholder">
-    <img src="photos/nambers.png" alt="NumbersAPI" />
-  </div>
-  <a href="Numberfacts.html"><h2>Number Facts</h2></a>
-  <p>Learn Facts about Numbers!</p>
-</div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required placeholder="Enter your password" />
 
-    <section class="cards">
-    <div class="card">
-  <div class="img-placeholder">
-    <img src="photos/WIKIPEDIA.jpg" alt="wikipedia" />
-  </div>
-  <a href="wikipedia.html"><h2>Wikipedia</h2></a>
-  <p>Learn about General Knowledge</p>
-</div>
-     <section class="cards">
-    <div class="card">
-  <div class="img-placeholder">
-    <img src="photos/dictionary.png" alt="DictionaryAPI" />
-  </div>
-  <a href="Dictionary.html"><h2>DictionaryAPI</h2></a>
-  <p>Learn more about your pet dogs</p>
-</div>
- <section class="cards">
-    <div class="card">
-  <div class="img-placeholder">
-    <img src="photos/TDB.png" alt="QuizAPI" />
-  </div>
-  <a href="quiz.html"><h2>QuizAPI</h2></a>
-  <p>READY TO TAKE A QUIZ?</p>
-</div>
+        <button type="submit">Login</button>
+      </form>
+      <p id="loginMessage" style="margin-top: 1rem;"></p>
+    </div>
   </section>
 
+  <script>
+    const loginForm = document.getElementById('loginForm');
+const loginMessage = document.getElementById('loginMessage');
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const email = loginForm.email.value.trim();
+  const password = loginForm.password.value.trim();
+
+  if (!email || !password) {
+    loginMessage.style.color = 'red';
+    loginMessage.textContent = 'Please enter both email and password.';
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:8001/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.token) {
+      // ✅ Save token and email in localStorage
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('userEmail', email);
+
+      loginMessage.style.color = 'green';
+      loginMessage.textContent = 'Login successful! Redirecting...';
+
+      // ✅ Redirect to homepage after 1 second
+      setTimeout(() => {
+        window.location.href = 'homepage.html';
+      }, 1000);
+
+    } else {
+      loginMessage.style.color = 'red';
+      loginMessage.textContent = data.message || 'Login failed. Check your credentials.';
+    }
+
+  } catch (error) {
+    console.error('Login error:', error);
+    loginMessage.style.color = 'red';
+    loginMessage.textContent = 'Error connecting to server. Please try again later.';
+  }
+});
+
+  </script>
 </body>
 </html>
