@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8000/site5/schedules/';
+const API_URL = 'https://learnhub-production-29a9.up.railway.app/site5/schedules/';
 const form = document.getElementById('scheduler-form');
 const taskList = document.getElementById('task-list');
 const filterInput = document.getElementById('date-filter');

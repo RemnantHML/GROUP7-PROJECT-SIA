@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (category) params.append("category", category); // Send category ID as input
     if (difficulty) params.append("difficulty", difficulty);
 
-    fetch(`http://localhost:8000/api/quiz?${params.toString()}`)
+    fetch(`https://learnhub-production-29a9.up.railway.app/api/quiz?${params.toString()}`)
       .then(res => res.json())
       .then(data => {
         if (data.results && data.results.length > 0) {

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000/api/Wikipedia";
+const API_URL = "https://learnhub-production-29a9.up.railway.app/api/Wikipedia";
 
 // Function to search Wikipedia articles using your secure API
 function searchWiki() {

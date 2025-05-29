@@ -25,7 +25,7 @@ document.getElementById('fetchFactBtn').addEventListener('click', async () => {
     }
 
     // Use your backend URL here
-    const url = new URL('http://localhost:8000/NumberFacts');
+    const url = new URL('https://learnhub-production-29a9.up.railway.app/NumberFacts');
     url.searchParams.set('number', number);
     url.searchParams.set('type', type);
 
